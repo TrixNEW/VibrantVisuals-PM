@@ -2,19 +2,18 @@
 > A lightweight PocketMine-MP 5 plugin that removes the server-side block on Minecraft Bedrock's Vibrant Visuals graphics mode.
 ---
 🔍 About
-By default, PocketMine-MP forcefully disables Vibrant Visuals for every player who connects to your server via a hardcoded flag in the resource pack handshake. This plugin intercepts that packet and flips the flag off, allowing eligible players to use Vibrant Visuals just as they would on an official server.
-No configuration. No commands. Just install and go.
+By default, PocketMine-MP forcefully disables Vibrant Visuals for every player who connects to your server via a hardcoded flag in the resource pack handshake. This plugin intercepts that packet and flips the flag off, allowing eligible players to use Vibrant Visuals just as they would on an official server. No configuration. No commands. Just install and go.
 ---
 ✅ Requirements
-PocketMine-MP 5.x
-Players must be on Minecraft Bedrock 1.21.120 or later
-Players must have a compatible device
+> PocketMine-MP 5.x
+> Players must be on Minecraft Bedrock 1.21.120 or later
+> Players must have a compatible device
 ---
 📦 Installation
-Download or build the plugin `.phar`
-Place it in your server's `plugins/` folder
-Restart the server
-That's it.
+> Download or build the plugin `.phar`
+> Place it in your server's `plugins/` folder
+> Restart the server
+> That's it.
 ---
 🚀 Usage
 Once installed, the server-side block is automatically removed for all connecting players. Players who wish to use Vibrant Visuals still need to enable it themselves:
