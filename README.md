@@ -1,27 +1,66 @@
-✨ VibrantVisuals
-> A lightweight PocketMine-MP 5 plugin that removes the server-side block on Minecraft Bedrock's Vibrant Visuals graphics mode.
+# ✨ VibrantVisuals
+
+> A lightweight **PocketMine-MP 5** plugin that restores access to Minecraft Bedrock’s **Vibrant Visuals** graphics mode.
+
 ---
-🔍 About
-By default, PocketMine-MP forcefully disables Vibrant Visuals for every player who connects to your server via a hardcoded flag in the resource pack handshake. This plugin intercepts that packet and flips the flag off, allowing eligible players to use Vibrant Visuals just as they would on an official server. No configuration. No commands. Just install and go.
+
+## 🔍 Overview
+
+By default, **PocketMine-MP** disables Vibrant Visuals for all players during login using a hardcoded flag in the resource pack handshake.
+
+**VibrantVisuals** removes that restriction.
+
+It intercepts the outgoing packet and safely overrides the flag, allowing supported players to enable Vibrant Visuals — just like on official servers.
+
+> ⚡ No config. No commands. Plug-and-play.
+
 ---
-✅ Requirements
-> PocketMine-MP 5.x
-> Players must be on Minecraft Bedrock 1.21.120 or later
-> Players must have a compatible device
+
+## ✅ Requirements
+
+- PocketMine-MP 5.x  
+- Minecraft Bedrock **1.21.120+**  
+- A device that supports Vibrant Visuals  
+
 ---
-📦 Installation
-> Download or build the plugin `.phar`
-> Place it in your server's `plugins/` folder
-> Restart the server
-> That's it.
+
+## 📦 Installation
+
+1. Download or build the `.phar`
+2. Place it in your server’s `plugins/` folder  
+3. Restart your server  
+
+That’s it — you’re done.
+
 ---
-🚀 Usage
-Once installed, the server-side block is automatically removed for all connecting players. Players who wish to use Vibrant Visuals still need to enable it themselves:
-Settings → Video → Graphics Mode → Vibrant Visuals
-Players on unsupported devices or older versions will simply continue using their current graphics mode — nothing will break for them.
+
+## 🚀 Usage
+
+The plugin works automatically after installation.
+
+Players can enable Vibrant Visuals themselves:
+
+**Settings → Video → Graphics Mode → Vibrant Visuals**
+
+- ✔ Supported players → Can enable it normally  
+- ✔ Unsupported players → No changes, no issues  
+
 ---
-⚙️ How It Works
-PocketMine-MP sends a `ResourcePacksInfoPacket` during the login sequence with `forceDisableVibrantVisuals` hardcoded to `true`. This plugin listens for that packet via `DataPacketSendEvent` and uses PHP Reflection to set the value to `false` before it reaches the client.
+
+## ⚙️ How It Works
+
+During login, PocketMine-MP sends a `ResourcePacksInfoPacket` with:
+
+```php
+forceDisableVibrantVisuals = true;
+```
+
+This plugin:
+
+- Listens to `DataPacketSendEvent`
+- Detects the packet
+- Uses Reflection to override the flag before it reaches the client
+
 ```php
 public function onDataPacketSend(DataPacketSendEvent $event): void {
     foreach ($event->getPackets() as $packet) {
@@ -33,15 +72,43 @@ public function onDataPacketSend(DataPacketSendEvent $event): void {
     }
 }
 ```
-> **Note:** This approach uses Reflection as a workaround because PocketMine-MP does not yet expose an official API for this. An official fix is tracked at [pmmp/PocketMine-MP#6739](https://github.com/pmmp/PocketMine-MP/issues/6739). Once merged, this plugin will be updated to use the proper API.
+
+> ⚠️ **Why Reflection?**  
+> PocketMine-MP currently does not expose a public API for this flag.
+
+An official fix is being tracked here:  
+👉 https://github.com/pmmp/PocketMine-MP/issues/6739  
+
+This plugin will switch to the official API once available.
+
 ---
-❓ FAQ
-Does this affect players without Vibrant Visuals support?
-No. Players on unsupported devices or older versions are unaffected.
-Does this impact server performance?
-Negligibly. The packet check runs only once per player during login.
-Why isn't Vibrant Visuals showing up for my players?
-Make sure players are on Minecraft 1.21.120+ and have manually enabled it in their video settings.
+
+## ❓ FAQ
+
+**Does this affect players without support?**  
+No — unsupported players continue using their default graphics.
+
+**Does this impact performance?**  
+No — the check runs once during login and is negligible.
+
+**Why don’t I see the option?**  
+Make sure:
+- You’re on **1.21.120+**
+- Your device supports it
+- You enabled it manually in settings
+
 ---
-📄 License
-MIT
+
+## 💡 Features
+
+- Zero configuration  
+- Fully automatic  
+- Safe fallback for unsupported clients  
+- Minimal performance impact  
+- Clean and focused implementation  
+
+---
+
+## 📄 License
+
+MIT License
